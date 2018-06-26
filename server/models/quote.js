@@ -15,7 +15,7 @@ let QuoteSchema = new mongoose.Schema({
   description: {
     type: String,
     required: true,
-    minlength: 100,
+    minlength: 1,
     trim: true
   }
 });
