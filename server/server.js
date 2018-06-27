@@ -11,13 +11,11 @@ let {mongoose} = require('./db/mongoose');
 let app = express();
 const port = process.env.PORT;
 
+//middleware
 app.use(bodyParser.json());
 app.use(cors());
 
-app.get('/', function (req, res) {
-  res.send('hello world');
-});
-
+//routes
 app.use('/', routes);
 
 app.listen(port, () => console.log(`Started on port ${port}`));

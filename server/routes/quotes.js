@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const {ObjectID} = require('mongodb');
 
+const email = require('../config/email');
+const {ObjectID} = require('mongodb');
 const {Quote} = require('../models/quote');
 
 router.get('/:id', (req, res) => {
@@ -31,7 +32,16 @@ router.post('/', (req, res) => {
   });
 
   quote.save().then(quote => {
-    res.send(quote);
+    email.send('new_quote', quote.email, {
+      email: quote.email,
+      description: quote.description
+    })
+    .then(() => {
+      res.send(quote);
+    })
+    .catch(e => {
+      res.status(400).send(e);
+    });
   }, e => {
     res.status(400).send(e);
   });
