@@ -5,6 +5,19 @@ const email = require('../config/email');
 const {ObjectID} = require('mongodb');
 const {Quote} = require('../models/quote');
 
+router.get('', (req, res) => {
+
+  Quote.find().then(quotes => {
+    if (!quotes) {
+      return res.status(404).send();
+    }
+
+    res.send(quotes);
+  }).catch(e => {
+    res.status(400).send();
+  });
+});
+
 router.get('/:id', (req, res) => {
   let id = req.params.id;
 
