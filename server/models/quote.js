@@ -17,7 +17,13 @@ let QuoteSchema = new mongoose.Schema({
     required: true,
     minlength: 1,
     trim: true
+  },
+  status: {
+    type: String,
+    default: 'new'
   }
+}, { 
+  timestamps: true
 });
 
 let Quote = mongoose.model('Quote', QuoteSchema);
