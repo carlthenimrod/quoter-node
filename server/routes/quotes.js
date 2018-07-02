@@ -19,7 +19,7 @@ router.get('', (req, res) => {
 });
 
 router.get('/:id', (req, res) => {
-  let id = req.params.id;
+  const id = req.params.id;
 
   if (!ObjectID.isValid(id)) {
     return res.status(404).send();
@@ -39,7 +39,7 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  let quote = new Quote({
+  const quote = new Quote({
     email: req.body.email,
     description: req.body.description
   });
@@ -55,6 +55,25 @@ router.post('/', (req, res) => {
     .catch(e => {
       res.status(400).send(e);
     });
+  }, e => {
+    res.status(400).send(e);
+  });
+});
+
+router.put('/:id', (req, res) => {
+  const id = req.params.id;
+
+  const {email, description, status, cost} = req.body;
+
+  Quote.findByIdAndUpdate(id, {
+    email,
+    description,
+    status,
+    cost
+  }, {
+    new: true
+  }).then(quote => {
+    res.send(quote);
   }, e => {
     res.status(400).send(e);
   });
