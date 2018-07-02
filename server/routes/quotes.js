@@ -63,6 +63,10 @@ router.post('/', (req, res) => {
 router.put('/:id', (req, res) => {
   const id = req.params.id;
 
+  if (!ObjectID.isValid(id)) {
+    return res.status(404).send();
+  }
+
   const {email, description, status, cost} = req.body;
 
   Quote.findByIdAndUpdate(id, {
