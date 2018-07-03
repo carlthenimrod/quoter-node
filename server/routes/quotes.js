@@ -3,7 +3,7 @@ const router = express.Router();
 
 const email = require('../config/email');
 const {ObjectID} = require('mongodb');
-const {Quote} = require('../models/quote');
+const {Quote, Comment} = require('../models/quote');
 
 router.get('', (req, res) => {
 
@@ -79,6 +79,34 @@ router.put('/:id', (req, res) => {
   }).then(quote => {
     res.send(quote);
   }, e => {
+    res.status(400).send(e);
+  });
+});
+
+router.post('/:id/comments', (req, res) => {
+  const id = req.params.id;
+
+  if (!ObjectID.isValid(id)) {
+    return res.status(404).send();
+  }
+
+  Quote.findById(id).then(quote => {
+
+    const comment = new Comment({
+      message: req.body.message,
+      admin: req.body.admin
+    });
+
+    quote.comments.push(comment);
+    
+    quote.save().then(quote => {
+      res.send(quote);
+    },
+    e => {
+      res.status(400).send(e);
+    });
+  },
+  e => {
     res.status(400).send(e);
   });
 });
