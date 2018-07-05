@@ -97,10 +97,38 @@ router.post('/:id/comments', (req, res) => {
       admin: req.body.admin
     });
 
-    quote.comments.push(comment);
+    quote.comments.unshift(comment);
     
     quote.save().then(quote => {
-      res.send(quote);
+      res.send(quote.comments.id(comment._id));
+    },
+    e => {
+      res.status(400).send(e);
+    });
+  },
+  e => {
+    res.status(400).send(e);
+  });
+});
+
+router.put('/:id/comments/:commentId', (req, res) => {
+  const id = req.params.id;
+  const commentId = req.params.commentId;
+
+  if (!ObjectID.isValid(id) || !ObjectID.isValid(commentId)) {
+    return res.status(404).send();
+  }
+
+  Quote.findById(id).then(quote => {
+
+    //get comment
+    let comment = quote.comments.id(commentId);
+
+    //update message
+    comment.message = req.body.message;
+
+    comment.save().then(comment => {
+      res.send(comment);
     },
     e => {
       res.status(400).send(e);
