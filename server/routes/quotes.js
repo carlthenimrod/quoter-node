@@ -6,7 +6,6 @@ const {ObjectID} = require('mongodb');
 const {Quote, Comment} = require('../models/quote');
 
 router.get('', (req, res) => {
-
   Quote.find().then(quotes => {
     if (!quotes) {
       return res.status(404).send();
@@ -120,15 +119,36 @@ router.put('/:id/comments/:commentId', (req, res) => {
   }
 
   Quote.findById(id).then(quote => {
-
-    //get comment
+    
     let comment = quote.comments.id(commentId);
-
-    //update message
     comment.message = req.body.message;
 
     comment.save().then(comment => {
       res.send(comment);
+    },
+    e => {
+      res.status(400).send(e);
+    });
+  },
+  e => {
+    res.status(400).send(e);
+  });
+});
+
+router.delete('/:id/comments/:commentId', (req, res) => {
+  const id = req.params.id;
+  const commentId = req.params.commentId;
+
+  if (!ObjectID.isValid(id) || !ObjectID.isValid(commentId)) {
+    return res.status(404).send();
+  }
+
+  Quote.findById(id).then(quote => {
+    
+    let comment = quote.comments.id(commentId).remove();
+
+    quote.save().then(quote => {
+      res.send(quote);
     },
     e => {
       res.status(400).send(e);
