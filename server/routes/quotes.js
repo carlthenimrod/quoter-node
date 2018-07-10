@@ -123,7 +123,7 @@ router.put('/:id/comments/:commentId', (req, res) => {
     let comment = quote.comments.id(commentId);
     comment.message = req.body.message;
 
-    comment.save().then(comment => {
+    quote.save().then(() => {
       res.send(comment);
     },
     e => {
