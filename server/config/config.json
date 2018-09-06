@@ -1,10 +1,12 @@
 {
 	"test": {
 		"PORT": 3000,
-		"MONGODB_URI": "mongodb://localhost:27017/QuoterTest"
+		"MONGODB_URI": "mongodb://localhost:27017/QuoterTest",
+		"JWT_SECRET": "98dsfkjsndczx980seasdx98ctfkd"
 	},
 	"development": {
 		"PORT": 3000,
-		"MONGODB_URI": "mongodb://localhost:27017/Quoter"
+		"MONGODB_URI": "mongodb://localhost:27017/Quoter",
+		"JWT_SECRET": "213890asjdkjkdhjkhzxcjzxkjck"
 	}
 }
