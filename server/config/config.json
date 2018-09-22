@@ -2,11 +2,17 @@
 	"test": {
 		"PORT": 3000,
 		"MONGODB_URI": "mongodb://localhost:27017/QuoterTest",
-		"JWT_SECRET": "98dsfkjsndczx980seasdx98ctfkd"
+		"ACCESS_TOKEN_SECRET": "19236d11-6b4c-4689-bf83-a29cd23b1242",
+		"ACCESS_TOKEN_EXPIRES_IN": 30000,
+		"REFRESH_TOKEN_SECRET": "1ca4c8d9-8186-4ce2-951f-29557f3aa519",
+		"REFRESH_TOKEN_EXPIRES_IN": 60000
 	},
 	"development": {
 		"PORT": 3000,
 		"MONGODB_URI": "mongodb://localhost:27017/Quoter",
-		"JWT_SECRET": "213890asjdkjkdhjkhzxcjzxkjck"
+		"ACCESS_TOKEN_SECRET": "d9ec7a35-4912-4e11-b2f1-761d18b3b118",
+		"ACCESS_TOKEN_EXPIRES_IN": 30000,
+		"REFRESH_TOKEN_SECRET": "4a60dec5-a410-44ad-89a6-060fc3893ea4",
+		"REFRESH_TOKEN_EXPIRES_IN": 60000
 	}
 }

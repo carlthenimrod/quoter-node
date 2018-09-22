@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 
-let CommentSchema = new mongoose.Schema({
+const CommentSchema = new mongoose.Schema({
   message: {
     type: String,
     required: true,
@@ -15,7 +15,7 @@ let CommentSchema = new mongoose.Schema({
   timestamps: true
 });
 
-let QuoteSchema = new mongoose.Schema({
+const QuoteSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
@@ -41,7 +41,7 @@ let QuoteSchema = new mongoose.Schema({
   timestamps: true
 });
 
-let Quote = mongoose.model('Quote', QuoteSchema);
-let Comment = mongoose.model('Comment', CommentSchema);
+const Quote = mongoose.model('Quote', QuoteSchema);
+const Comment = mongoose.model('Comment', CommentSchema);
 
 module.exports = {Quote, Comment};

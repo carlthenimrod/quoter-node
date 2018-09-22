@@ -1,17 +1,13 @@
-const {User} = require('./../models/user');
+const jwt = require('jsonwebtoken');
 
 const authenticate = async (req, res, next) => {
   try {
-    const token = req.header('x-auth');
-    const user = await User.findByToken(token);
-    if (!user) throw new Error('User not found.');
-
+    const token = req.header('Authorization').split(' ')[1];
+    const user = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
     req.user = user;
-		req.token = token;
 		next();
-  }
-  catch (e) {
-		res.status(401).send();
+  } catch (e) {
+		res.status(401).send(e);
   }
 };
 

@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
+const {authenticate} = require('./../middleware/authenticate');
 const email = require('../config/email');
 const {ObjectID} = require('mongodb');
 const {Quote, Comment} = require('../models/quote');
 
-router.get('', async (req, res) => {
+router.get('', authenticate, async (req, res) => {
   try {
     const quotes = await Quote.find();
     res.send(quotes);
